@@ -1,1 +1,2 @@
-New Contents
+DUID:MAMA0002
+DATA:message and data goes here
