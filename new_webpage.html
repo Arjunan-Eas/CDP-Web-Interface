@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Textbox Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .textbox {
+            padding: 0.5em;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 300px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="messageTxt" class="textbox" placeholder="Enter text here" maxlength="200">
+    <input type="button" id="fileBtn" value="Send to file">
+
+    <p class="output" id="displayOutput" ></p>
+</body>
+
+<script>
+
+    const fs = require("node:fs");
+
+    const txt1 = document.getElementById("messageTxt");
+    const btn1 = document.getElementById("fileBtn");
+    const out1 = document.getElementById("displayOutput");
+
+    function fun1() {
+        
+        out1.innerHTML = txt1.value;
+        fs.writeFileSync("./CDPpacket.txt", txt1.value);
+        txt1.value = "";
+    }
+    
+    btn1.addEventListener('click', fun1);
+
+
+</script>
+
+</html>

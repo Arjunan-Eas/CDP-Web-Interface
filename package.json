@@ -1,0 +1,18 @@
+{
+  "name": "owl-summer-research",
+  "version": "1.0.0",
+  "description": "Test website for owl",
+  "main": "index.js",
+  "scripts": {
+    "test": "Amongus"
+  },
+  "repository": {
+    "type": "git",
+    "url": "na"
+  },
+  "keywords": [
+    "na"
+  ],
+  "author": "Arjunan Easwarachandran",
+  "license": "ISC"
+}
