@@ -1,2 +1,5 @@
-DUID:MAMA0002
-DATA:message and data goes here
+DUID:MAMA0001 
+TOPIC:message_type
+DATA:message
+DATE:date
+TIME:time
