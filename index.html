@@ -196,8 +196,12 @@
             <label for="DUID">Destination Device User ID:</label>
             <input type="text" id="DUID" name="DUID" maxlength=8 minlength=8>
             <p>DUID must be 8 characters</p>
-            <label for="TOPIC">Topic</label>
-            <input type="text" id="TOPIC" name="TOPIC">
+            <label for="TOPIC:">Topic</label>
+            <select id="TOPIC" name="TOPIC">
+                <option value="status">Status: Generic, non-emergency message</option>
+                <option value="alert">Alert: Emergency message</option>
+                <option value="dcmd">Send a Duck command</option>
+            </select>
             <p>Please enter a valid topic as a string</p>
             <label for="status">Your message:</label><br/>
             <textarea class="textbox comments textbox-full" maxlength=225 name="DATA" id="commentsInput" cols="30"
