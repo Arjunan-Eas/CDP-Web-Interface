@@ -1,0 +1,5 @@
+DUID:MAMA0001
+TOPIC:Status
+DATA:Test message to demonstrate functionality
+DATE:2024-07-09
+TIME:21:25:33

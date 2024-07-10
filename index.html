@@ -193,20 +193,22 @@
     <h3>Fill out the form below to submit information to the ClusterDuck network.</h3>
     <div id="form">
         <form action="/submit" method="post">
-            <label for="clientId">Your ID:</label>
-            <input type="text" id="clientId" name="clientId" pattern="[A-NPZ1-9]{4}" maxlength=4>
-            <p>ID must be four characters long. It can be any capital letters of the Latin alphabet A-Z except O, or any
-                numbers 1-9.</p>
+            <label for="DUID">Destination Device User ID:</label>
+            <input type="text" id="DUID" name="DUID" maxlength=8 minlength=8>
+            <p>DUID must be 8 characters</p>
+            <label for="TOPIC">Topic</label>
+            <input type="text" id="TOPIC" name="TOPIC">
+            <p>Please enter a valid topic as a string</p>
             <label for="status">Your message:</label><br/>
-            <textarea class="textbox comments textbox-full" maxlength=200 name="message" id="commentsInput" cols="30"
+            <textarea class="textbox comments textbox-full" maxlength=225 name="DATA" id="commentsInput" cols="30"
                       rows="2" onkeyup="updateCounter(this)"></textarea>
 
-                    Remaining characters: <span id="counter">200</span>
+                    Remaining characters: <span id="counter">225</span>
 
                     <script type="text/javascript">
                     function updateCounter(textarea) {
                         var currentLength = textarea.value.length;
-                        var maxCharacters = 200;
+                        var maxCharacters = 225;
                         var remainingCharacters = maxCharacters - currentLength;
                         document.getElementById("counter").innerHTML = remainingCharacters;  
                     }
