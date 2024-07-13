@@ -63,14 +63,14 @@
 
         h2 {
             text-align: center;
-            color: #c2c2c2;
+            color: #ffffff;
             margin: 16px 0 8px;
         }
 
         h3 {
             font-size: 14px;
             margin: 0 0 24px;
-            color: #00ffd9;
+            color: #c2c2c2;
             font-weight: 400;
         }
 
@@ -146,7 +146,7 @@
 
         .updateBox {            
             background-color: #2A2C49; 
-            color: #cf4c4c;
+            color: #ffffff;
             padding: 18px 24px 14px;
             border-radius: 8px;
             text-align: left;
@@ -332,12 +332,37 @@
                     </script>
             </textarea>
             <div class="container">
-                <button class="btn sendReportBtn">Send</button>
+                <button onclick="displayText()" class="btn sendReportBtn">Send</button>
               </div>          
             <!-- <button type="submit" id="sendBtn" class="sendReportBtn">Send</button> -->
             <p id="makeshiftErrorOutput" class="hidden"></p>
         </form>
     </div>
+</div>
+
+<div class="updateBox">
+    <label type="text" style="background-color:rgb(42, 44, 73);">Message History: </label>
+    <p id="msgDisplayArea"></p>
+    <script>
+        // Define array for messages
+        var messages = [];
+        // Define message count
+        var messageCount = 0;
+        function displayText() {
+            // Create JSON object for msg
+            var msg = {
+                'DUID' : document.getElementById("DUID").value,
+                'TOPIC' : document.getElementById("TOPIC").value,
+                'DATA' : document.getElementById("commentsInput").value
+            }
+            // Append the values from the form to the array
+            messages.push(msg);
+            // Display the text in the msgDisplayArea
+            document.getElementById("msgDisplayArea").innerText += messages[messageCount].DATA + '\n';
+            // Increment message count
+            messageCount ++;
+        }
+    </script>
 </div>
 <!-- <div id="mainSent" class="=main off sent">
     <div class="updateBox">
