@@ -1,1 +1,0 @@
-{"DUID": "PAPA0004", "TOPIC": "status", "DATA": "Kitchen lights", "DATE": "2024-07-12", "TIME": "19:20:47"}{"DUID": "PAPA0004", "TOPIC": "status", "DATA": "Them bricks shine different under them kitchen lights", "DATE": "2024-07-12", "TIME": "19:21:06"}{"DUID": "PAPA0004", "TOPIC": "status", "DATA": "Wapoudo", "DATE": "2024-07-12", "TIME": "19:21:25"}
