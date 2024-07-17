@@ -1,13 +1,30 @@
+"""
+Code is provided to run the server locally on your computer for testing, or on the Pi. 
+Comment out the unused line to switch between modes.
+
+"""
+
+
+# Flask is the service used to build the server
 from flask import Flask, render_template, request, redirect, url_for, render_template_string
+
+# Socketio is used to establish unidirectional communication between the client and server
 from flask_socketio import SocketIO
+
 from datetime import datetime
+
+# Threading allows parallel processes to take place
 import threading
+
+# Watchdog is a file monitoring service
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+# Instantiate a flask app and socketio object
 app = Flask(__name__)
 socket = SocketIO(app)
 
+# Custom class to monitor file changes
 class FileChangeHandler(FileSystemEventHandler):
     def __init__(self, socket, filename):
         self.socket = socket
@@ -16,11 +33,12 @@ class FileChangeHandler(FileSystemEventHandler):
     def on_modified(self, event):
         if event.src_path.endswith(self.filename[-21:-1]):
         # if event.src_path.endswith(self.filename[2:]):
-            with open(self.filename, 'r') as f:
+            with open(self.filename, 'r') as f:     # Send the contents of the received message to the client
                 received_message = list(f.read())
                 received_message = "".join([char for char in received_message if char != '\n'])
                 self.socket.send(received_message)
 
+# Initialization function for watchdog
 def start_watching(socket, filename):
     event_handler = FileChangeHandler(socket, filename)
     observer = Observer()
@@ -34,14 +52,17 @@ def start_watching(socket, filename):
         observer.stop()
     observer.join()
 
+# Main route for sending html page to client
 @app.route('/')
 def index():
     return render_template('index.html')
     # with open('new_index.html', 'r') as f:
     #     return render_template_string(f.read())
 
+# POST method that deals with message sent by client
 @app.route('/submit', methods=['POST'])
 def submit():
+    # Get the contents of the form on the webpage
     text1 = request.form['DUID']
     text2 = request.form['TOPIC']
     text3 = request.form['DATA']
@@ -56,16 +77,16 @@ def submit():
         f.write(f'DUID:{text1}\nTOPIC:{text2}\nDATA:{text3}\nDATE:{text4}\nTIME:{text5}\nREAD_STATE:{text6}')
     return redirect(url_for('index'))
 
+# Event when a message is received via socket
 socket.on("message")
 def modify_read_state(message):
-    if message == "Message received":
+    if message == "Message received":   # Checks if message is confirmation of receipt
         with open('/home/ubuntu/webapp/messaging/received_message.txt', 'r+b') as f:
         # with open('received_message.txt', 'r+b') as f:
-            # Ensure the file is long enough
-            f.seek(0, 2)  # Move to the end of the file
+            f.seek(0, 2)
             if f.tell() > 0:
                 f.seek(-1, 2)
-                f.write(b"1")
+                f.write(b"1")   # Changes read state of received message
 
 if __name__ == '__main__':
     filename = '/home/ubuntu/webapp/messaging/received_message.txt'
