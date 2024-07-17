@@ -1,5 +1,5 @@
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +24,7 @@
                 box-sizing: border-box;
                 height: 100vh;
                 overflow-y: hidden;
+                /* Background of the whole page */
             }
 
             .container {
@@ -35,6 +36,7 @@
                 width: 80vw;
                 margin: 0 auto;
                 min-height: 8vh;
+                /* Container for send button */
             }
 
             .btn {
@@ -51,16 +53,19 @@
                 flex: 1 1 auto;
                 transition: 0.5s;
                 background-size: 200% auto;
+                /* Send button part 1 */
             }
 
             .btn:hover {
                 background-position: right center;
                 cursor: pointer;
+                /* Send button part 2 */
             }
 
             .sendReportBtn {
                 background-image: linear-gradient(to right, rgb(8, 246, 242) 0%, rgb(255, 113, 248) 51%, rgb(8, 246, 242) 100%);
                 width: 75%;
+                /* Send button part 3 */
             }
 
             h1 {
@@ -71,12 +76,7 @@
                 background-clip: text;
                 text-align: center;
                 margin: 16px 0 8px;
-            }
-
-            h2 {
-                text-align: center;
-                color: #ffffff;
-                margin: 16px 0 8px;
+                /* Main title style */
             }
 
             h3 {
@@ -84,55 +84,47 @@
                 margin: 0 0 24px;
                 color: #c2c2c2;
                 font-weight: 400;
-            }
-
-            h6 {
-                font-size: 12px;
-                font-weight: 300;
-                line-height: 16px;
-                margin: 16px 0 0;
-                color: rgba(255, 255, 255, 0.5);
-            }
-
-            p {
-                color: #ffffff;
-            }
-
-            a {
-                text-decoration: none;
+                /* Subtitle style */
             }
 
             .content {
                 text-align: center;
+                /* Main page styling */
             }
 
             .messageDisplayArea {
                 flex: 1;
                 overflow-y: scroll;
                 padding: 10px;
-                height: 200px; /* Adjust the height as needed */
+                height: 200px;
+                /* Sent/received message area */
             }
 
             .messageDisplayArea::-webkit-scrollbar {
                 width: 6px;
+                /* Sent/received message area */
             }
 
             .messageDisplayArea::-webkit-scrollbar-track {
                 background: #ddd;
+                /* Sent/received message area */
             }
 
             .messageDisplayArea::-webkit-scrollbar-thumb {
                 background: #bdbdbd;
+                /* Sent/received message area */
             }
 
             .msg {
                 display: flex;
                 align-items: flex-end;
                 margin-bottom: 10px;
+                /* Sent/received message options */
             }
 
             .msg:last-of-type {
                 margin: 0;
+                /* Sent/received message options */
             }
 
             .msg-bubble {
@@ -140,6 +132,7 @@
                 padding: 15px;
                 border-radius: 15px;
                 background: #5f5f5f;
+                /* Sent/received message options */
             }
 
             .msg-info {
@@ -147,40 +140,48 @@
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: 10px;
+                /* Sent/received message options */
             }
 
             .msg-info-name {
                 margin-right: 10px;
                 font-weight: bold;
+                /* Sent/received message options */
             }
 
             .msg-info-time {
                 font-size: 0.85em;
                 font-weight: bold;
+                /* Sent/received message options */
             }
 
             .msg-info-topic {
                 font-size: 1em;
                 margin-right: 10px;
                 font-weight: bold;
+                /* Sent/received message options */
             }
 
             .left-msg .msg-bubble {
                 border-bottom-left-radius: 0;
+                /* Received message option */
             }
 
             .right-msg {
                 flex-direction: row-reverse;
+                /* Sent message options */
             }
 
             .right-msg .msg-bubble {
                 background-image: linear-gradient(to right, rgb(8, 246, 242), rgb(255, 113, 248));
                 color: black;
                 border-bottom-right-radius: 0;
+                /* Sent message options */
             }
 
             .right-msg .msg-img {
                 margin: 0 0 0 10px;
+                /* Sent message options */
             }
 
             .updateBox {            
@@ -192,6 +193,7 @@
                 flex-flow: column wrap;
                 justify-content: space-between;
                 height: 30%;
+                /* Bottom box */
             }
 
             #form {
@@ -201,6 +203,7 @@
                 border-radius: 8px;
                 text-align: left;
                 margin-bottom: 2em;
+                /* Main message send box */
             }
 
             .textbox {
@@ -212,6 +215,7 @@
                 display: block;
                 background: #989898;
                 color: #ffffff;
+                /* Main message textbox */
             }
 
             .textbox-small {
@@ -229,10 +233,12 @@
 
             textarea {
                 resize: none;
+                /* Main message textbox */
             }
 
             label {
                 font-weight: bold;
+                /* Label formatting */
             }
 
             .hidden {
@@ -240,7 +246,9 @@
             }
 
         </style>
+
         <script>
+
             // Function to check if the page is being reloaded
             function isPageReloaded() {
                 // Check if the performance navigation type is reload
@@ -267,35 +275,44 @@
                     return confirmationMessage; // Standard for some older browsers
                 }
             });
+        
         </script>
+
         <!-- Jquery source code -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
         <!-- Socket.IO source code -->
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+        
         <script>
-            // Socket object
+
+            // Socketio code
             const socket = io();
 
             var lastMessage = "";
 
             socket.on("message", function(message) {
-                if (message.slice(-1) == "1"){
-                } else if (message == lastMessage) {
+                if (message.slice(-1) == "1"){      // Ignore messages that have already been read
+                } else if (message == lastMessage) {    // Ignore identical repeat messages due to file event errors
                 } else {
+
                 const index1 = message.indexOf('TOPIC:');
                 const index2 = message.indexOf('DATA:');
                 const index3 = message.indexOf('DATE:');
                 const originalContent = get(".messageDisplayArea");
+
+                // Add received message to messageDisplayArea
                 appendMessage("SDUID", "You", message.slice(index1 + 6, index2), "left", message.slice(index2 + 5, index3), originalContent);
                 lastMessage = message;
-                socket.send("Message received");
+                socket.send("Message received");    // Confirm receipt
                 }
             });
 
         </script>
 
-
         <script>
+
+            // Jquery code to submit message from portal
             $(document).ready(function() {
             $('form').submit(function(event) {
                 event.preventDefault();
@@ -318,23 +335,30 @@
 
         </script>
     </head>
+
     <body>
 
         <!-- HTML content of the captive portal below -->
         <h1>CLUSTERDUCK PORTAL</h1>
         <div class="content main" id="formContent">
+
             <h3>Fill out the form below to submit information to the ClusterDuck network.</h3>
             <div id="form" style="background-color:rgb(42, 44, 73);">
+
+                <!-- HTML content of message form -->
                 <form action="/submit" method="post" id="webInterfaceForm">
+
                     <label for="DUID" style="color: white;">Destination Device User ID: </label>
                     <input type="text" id="DUID" name="DUID" style="background-color: #989898;"  maxlength=8 minlength=8></p>
                     <label for="TOPIC:" style="color: white;">Topic: </label>
+
                     <select id="TOPIC" style="background-color: #989898;" style="color: white;" name="TOPIC">
                         <option hidden disabled selected value> -- Select a topic -- </option>
                         <option value="Status">Status: Generic, non-emergency message</option>
                         <option value="Alert">Alert: Emergency message</option>
                         <option value="DCMD">Send a Duck command</option>
                     </select></p>
+
                     <label for="status" style="color: white;">Your message:</label><br/>
                     <textarea class="textbox comments textbox-full" maxlength=225 name="DATA" style="color: white;"id="commentsInput" cols="30"
                             rows="2" onkeyup="updateCounter(this)"></textarea>
@@ -348,17 +372,20 @@
                                 var remainingCharacters = maxCharacters - currentLength;
                                 document.getElementById("counter").innerHTML = remainingCharacters;  
                             }
+
                             </script>
                     </textarea>
+
                     <div class="container">
                         <button onclick="displayText()" class="btn sendReportBtn">Send</button>
-                    </div>          
-                    <!-- <button type="submit" id="sendBtn" class="sendReportBtn">Send</button> -->
+                    </div>
+
                     <p id="makeshiftErrorOutput" class="hidden"></p>
                 </form>
             </div>
         </div>
 
+        <!-- HTML content of send/received message area -->
         <section class="updateBox">
             <label type="text" style="background-color:rgb(42, 44, 73);">Message History: </label>
 
@@ -413,8 +440,9 @@
 
         <!-- Run javascript actions here -->
         <script type="text/javascript">
+            
+            // Function to add sent/received messages to messageDisplayArea 
             function appendMessage(name, destination, topic, side, text, content) {
-                    //   Simple solution for small apps
                     const newHTML = `
                         <div class="msg ${side}-msg">
 
@@ -434,9 +462,10 @@
                     content.scrollTop += 500;
             }
 
+            // Support function for getting HTML content of a given section
             function get(selector, root = document) {
                     return root.querySelector(selector);
             }
         </script>
     </body>
-    </html>
+</html>
