@@ -6,6 +6,8 @@ index.html -> Mostly original html page from a previous iteration of the portal.
 
 jquery-3.5.1.min.js -> JQUERY functions used as a source file in the html code.
 
-message.txt -> Local message file for testing the web interface on your own device. The real message.txt will go on the Pi, but having one to test is helpful.
-
 new_index.html -> Up to date html page for the CDP portal.
+
+received_message.txt -> Test file for messages received from network
+
+sent_message.txt -> Test file for messages sent by client
