@@ -1,5 +1,6 @@
-DUID:MAMA0001 
+DUID:8 character device user ID 
 TOPIC:message_type
 DATA:message
 DATE:date
 TIME:time
+READ_STATE:0=Unread 1=Read
