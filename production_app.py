@@ -23,7 +23,7 @@ class FileChangeHandler(FileSystemEventHandler):
 def start_watching(socket, filename):
     event_handler = FileChangeHandler(socket, filename)
     observer = Observer()
-    observer.schedule(event_handler, path='/home/<USERNAME>/webapp/messaging/', recursive=False)
+    observer.schedule(event_handler, path='/home/USERNAME/webapp/messaging/', recursive=False)
     observer.start()
     try:
         while True:
@@ -44,21 +44,21 @@ def submit():
     text4 = str(datetime.now())[:10]
     text5 = str(datetime.now())[11:19]
     text6 = 0
-    with open('/home/<USERNAME>/webapp/messaging/sent_message.txt', 'w') as f:
+    with open('/home/USERNAME/webapp/messaging/sent_message.txt', 'w') as f:
         f.write(f'DUID:{text1}\nTOPIC:{text2}\nDATA:{text3}\nDATE:{text4}\nTIME:{text5}\nREAD_STATE:{text6}')
     return redirect(url_for('index'))
 
 socket.on("message")
 def modify_read_state(message):
     if message == "Message received":
-        with open('/home/<USERNAME>/webapp/messaging/received_message.txt', 'r+b') as f:
+        with open('/home/USERNAME/webapp/messaging/received_message.txt', 'r+b') as f:
             f.seek(0, 2)
             if f.tell() > 0:
                 f.seek(-1, 2)
                 f.write(b"1")
 
 if __name__ == '__main__':
-    filename = '/home/<USERNAME>/webapp/messaging/received_message.txt'
+    filename = '/home/USERNAME/webapp/messaging/received_message.txt'
     watcher_thread = threading.Thread(target=start_watching, args=(socket, filename))
     watcher_thread.daemon = True
     watcher_thread.start()
