@@ -5,7 +5,7 @@ import threading
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 socket = SocketIO(app)
 
 class FileChangeHandler(FileSystemEventHandler):

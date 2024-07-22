@@ -21,7 +21,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 # Instantiate a flask app and socketio object
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 socket = SocketIO(app)
 
 # Custom class to monitor file changes
@@ -56,7 +56,7 @@ def start_watching(socket, filename):
 @app.route('/')
 def index():
     # return render_template('index.html')
-    with open('new_index.html', 'r') as f:
+    with open('index.html', 'r') as f:
         return render_template_string(f.read())
 
 # POST method that deals with message sent by client
