@@ -258,18 +258,9 @@
                 return false;
             }
 
-            // Function to send data to the server
-            function sendReloadInfo() {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/page_reloaded", true);
-                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                xhr.send(JSON.stringify({ message: "Page was reloaded" }));
-            }
-
             // Alert user before the page is unloaded and send data to server
             window.addEventListener('beforeunload', function (e) {
                 if (isPageReloaded()) {
-                    sendReloadInfo();
                     var confirmationMessage = 'The page is about to be reloaded. Are you sure you want to leave?';
                     (e || window.event).returnValue = confirmationMessage; // Standard for most browsers
                     return confirmationMessage; // Standard for some older browsers
@@ -277,7 +268,7 @@
             });
         
         </script>
-
+    
         <!-- Jquery source code -->
         <script src="static/jquery-3.7.1.min.js"></script>
 
