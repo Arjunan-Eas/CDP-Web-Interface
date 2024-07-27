@@ -1,6 +1,6 @@
 DUID:MAMA0001
 TOPIC:Status
-DATA:Your message was: asd
+DATA:Event triggered
 DATE:2024-07-16
 TIME:17:48:45
 READ_STATE:0

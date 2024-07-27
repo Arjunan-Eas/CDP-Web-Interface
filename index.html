@@ -352,7 +352,7 @@
                     </select></p>
 
                     <label for="status" style="color: white;">Your message:</label><br/>
-                    <textarea class="textbox comments textbox-full" maxlength=225 name="DATA" style="color: white;"id="commentsInput" cols="30"
+                    <textarea class="textbox comments textbox-full" minlength=1 maxlength=225 name="DATA" style="color: white;"id="commentsInput" cols="30"
                             rows="2" onkeyup="updateCounter(this)"></textarea>
 
                             Remaining characters: <span style="color: white;" id="counter">225</span>
@@ -394,26 +394,29 @@
 
                 function displayText() {
                     
-                    // Exits function if the text section is empty
-                    if (!document.getElementById("commentsInput").value) return;
+                    // Exits function if any section is invalid
+                    const x1 = document.getElementById("DUID").value;
+                    const x2 = document.getElementById("TOPIC").value;
+                    const x3 = document.getElementById("DATA").value;
+
+                    if (!validSubmission(x1, x2, x3)){
+                        return;
+                    }
 
                     // Gets current content of update box
                     const chatContents = get(".messageDisplayArea");
 
                     // Create JSON object for msg
                     var msg = {
-                        'DUID': document.getElementById("DUID").value,
-                        'TOPIC': document.getElementById("TOPIC").value,
-                        'DATA': document.getElementById("commentsInput").value,
-                        'TYPE': 'sent'
+                        'DUID': x1,
+                        'TOPIC': x2,
+                        'DATA': x3,
                     };
 
                     // Append the values from the form to the array
                     messages.push(msg);
                     
-                    if (messages[messageCount].TYPE == 'sent') {
-                        appendMessage('You', messages[messageCount].DUID, messages[messageCount].TOPIC, 'right', messages[messageCount].DATA, chatContents);
-                    }
+                    appendMessage('You', messages[messageCount].DUID, messages[messageCount].TOPIC, 'right', messages[messageCount].DATA, chatContents);
                     
                     // Increment message count
                     messageCount++;
@@ -457,6 +460,19 @@
             // Support function for getting HTML content of a given section
             function get(selector, root = document) {
                     return root.querySelector(selector);
+            }
+
+            function validSubmission(DUID, TOPIC, DATA) {
+                if (DUID.length != 8) {
+                    return false
+                }
+                else if (TOPIC == ""){
+                    return false
+                }
+                else if (DATA == ""){
+                    return false
+                }
+                return true
             }
         </script>
     </body>
