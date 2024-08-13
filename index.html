@@ -287,14 +287,19 @@
                 if (message.slice(-1) == "1"){      // Ignore messages that have already been read
                 } else if (message == lastMessage) {    // Ignore identical repeat messages due to file event errors
                 } else {
-
+                
+                // Find indicies of important words
                 const index1 = message.indexOf('TOPIC:');
                 const index2 = message.indexOf('DATA:');
-                const index3 = message.indexOf('DATE:');
                 const originalContent = get(".messageDisplayArea");
+                
+                // Slice the message into its components
+                const SDUID = message.slice(6, index1);
+                const TOPIC = message.slice(index1 + 6, index2);
+                const DATA = message.slice(index2 + 5);
 
                 // Add received message to messageDisplayArea
-                appendMessage("SDUID", "You", message.slice(index1 + 6, index2), "left", message.slice(index2 + 5, index3), originalContent);
+                appendMessage(SDUID, "You", TOPIC, "left", DATA, originalContent);
                 lastMessage = message;
                 socket.send("Message received");    // Confirm receipt
                 }
@@ -340,10 +345,19 @@
                 <!-- HTML content of message form -->
                 <form action="/submit" method="post" id="webInterfaceForm">
 
+                    <label for="DUCK_TYPE" style="color: white;">Duck Type: </label>
+                    <select id="DUCK_TYPE" style="background-color: #989898;" style="color: white;" name="DUCK_TYPE">
+                        <option hidden disabled selected value> -- Select a duck type -- </option>
+                        <option value="PAPA">PapaDuck</option>
+                        <option value="MAMA">MamaDuck</option>
+                        <option value="LINK">DuckLink</option>
+                        <option value="DETECTOR">DetectorDuck</option>
+                    </select></p>
+
                     <label for="DUID" style="color: white;">Destination Device User ID: </label>
                     <input type="text" id="DUID" name="DUID" style="background-color: #989898;"  maxlength=8 minlength=8></p>
+                    
                     <label for="TOPIC:" style="color: white;">Topic: </label>
-
                     <select id="TOPIC" style="background-color: #989898;" style="color: white;" name="TOPIC">
                         <option hidden disabled selected value> -- Select a topic -- </option>
                         <option value="Status">Status: Generic, non-emergency message</option>
@@ -391,44 +405,54 @@
                 var messages = [];
                 // Define message count
                 var messageCount = 0;
+                // Create an array of duck types to store selections
+                var duckTypes = [];
 
                 function displayText() {
-                    
-                    // Exits function if any section is invalid
-                    const x1 = document.getElementById("DUID").value;
-                    const x2 = document.getElementById("TOPIC").value;
-                    const x3 = document.getElementById("DATA").value;
 
-                    if (!validSubmission(x1, x2, x3)){
-                        return;
-                    }
+                    // Store the selected value of DUCK_TYPE in duckType array
+                    document.getElementById("webInterfaceForm").onsubmit = function() {
+                        duckTypes.push(document.getElementById("DUCK_TYPE").value);
+                    };
 
                     // Gets current content of update box
                     const chatContents = get(".messageDisplayArea");
 
                     // Create JSON object for msg
                     var msg = {
-                        'DUID': x1,
-                        'TOPIC': x2,
-                        'DATA': x3,
+                        'DUID': document.getElementById("DUID").value,
+                        'TOPIC': document.getElementById("TOPIC").value,
+                        'DATA': document.getElementById("commentsInput").value,
                     };
+
+                    // Exits function if any section is invalid
+                    if (validSubmission(msg.DUID, msg.TOPIC, msg.DATA)) {
 
                     // Append the values from the form to the array
                     messages.push(msg);
                     
+                    // Add the message to the portal
                     appendMessage('You', messages[messageCount].DUID, messages[messageCount].TOPIC, 'right', messages[messageCount].DATA, chatContents);
-                    
+
                     // Increment message count
                     messageCount++;
-                    
+                    }
                 }
 
+                // Helper function to format dates into standard time
                 function formatDate(date) {
                     const h = date.getHours();
                     const m = "0" + date.getMinutes();
                     const s = h < 12 ? "AM" : "PM";
                     return `${(h % 12) || 12}:${m.slice(-2)} ${s}`;
                 }
+
+                // On page load, set the value of Duck Type if selected previously
+                window.onload = function() {
+                    if (messageCount > 0) {
+                        document.getElementById("DUCK_TYPE").value = duckTypes[messageCount - 1];
+                    }
+                };
 
             </script>
         </section>
@@ -437,13 +461,13 @@
         <script type="text/javascript">
             
             // Function to add sent/received messages to messageDisplayArea 
-            function appendMessage(name, destination, topic, side, text, content) {
+            function appendMessage(sender, recipient, topic, side, text, html_content) {
                     const newHTML = `
                         <div class="msg ${side}-msg">
 
                         <div class="msg-bubble">
                             <div class="msg-info">
-                            <div class="msg-info-name">${name} to ${destination}</div>
+                            <div class="msg-info-name">${sender} to ${recipient}</div>
                             <div class="msg-info-topic">Topic: ${topic}</div>
                             <div class="msg-info-time">${formatDate(new Date())}</div>
                             </div>
@@ -453,8 +477,8 @@
                         </div>
                     `;
 
-                    content.insertAdjacentHTML("beforeend", newHTML);
-                    content.scrollTop += 500;
+                    html_content.insertAdjacentHTML("beforeend", newHTML);
+                    html_content.scrollTop += 500;
             }
 
             // Support function for getting HTML content of a given section

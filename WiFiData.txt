@@ -1,6 +1,15 @@
-DUID:8 character device user ID 
+Format OUT of web portal:
+
+DUID:8 character destination device user ID 
 TOPIC:message_type
 DATA:message
-DATE:date
-TIME:time
-READ_STATE:0=Unread 1=Read
+DUCK_TYPE:duck_type
+
+
+
+Format IN to web portal:
+
+SDUID:8 character source device user ID 
+TOPIC:message_type
+DATA:message
+

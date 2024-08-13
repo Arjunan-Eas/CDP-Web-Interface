@@ -56,9 +56,9 @@ def start_watching(socket, filename):
 @app.route('/')
 def index():
     # return render_template('index.html')
-    with open('index.html', 'r') as f:
+    with open('CDP-Web-Interface\index.html', 'r') as f:
         return render_template_string(f.read())
-
+    
 # POST method that deals with message sent by client
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -66,15 +66,13 @@ def submit():
     text1 = request.form['DUID']
     text2 = request.form['TOPIC']
     text3 = request.form['DATA']
-    text4 = str(datetime.now())[:10]
-    text5 = str(datetime.now())[11:19]
-    text6 = 0
+    text4 = request.form['DUCK_TYPE']
     # with open('/home/ubuntu/webapp/messaging/received_message.txt', 'w') as f:
     # with open('received_message.txt', 'w') as f:
-        # f.write(f'DUID:{text1}\nTOPIC:{text2}\nDATA:Your message was: {text3}\nDATE:{text4}\nTIME:{text5}\nREAD_STATE:{text6}')
+        # f.write(f'DUID:{text1}\nTOPIC:{text2}\nDATA:{text3}\nDUCK_TYPE:{text4}')
     # with open('/home/ubuntu/webapp/messaging/sent_message.txt', 'w') as f:
     with open('sent_message.txt', 'w') as f:
-        f.write(f'DUID:{text1}\nTOPIC:{text2}\nDATA:{text3}\nDATE:{text4}\nTIME:{text5}\nREAD_STATE:{text6}')
+        f.write(f'DUID:{text1}\nTOPIC:{text2}\nDATA:{text3}\nDUCK_TYPE:{text4}')
     return redirect(url_for('index'))
 
 # Event when a message is received via socket
