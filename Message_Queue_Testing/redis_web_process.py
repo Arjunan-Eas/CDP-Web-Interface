@@ -20,7 +20,7 @@ redis_stream = redis.Redis(host=REDIS_HOST, port=6379)
 def redis_init():
     # Create consumer group for web portal
     try:
-        redis_stream.xgroup_create(STREAM_NAME, CONSUMER_GROUP, id=0)
+        redis_stream.xgroup_create(STREAM_NAME, CONSUMER_GROUP, id=0, mkstream=True)
     # Handle exception raised when group already exists
     except(redis.exceptions.ResponseError):
         print("group already created")

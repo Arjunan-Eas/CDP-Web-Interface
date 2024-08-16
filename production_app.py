@@ -1,5 +1,5 @@
 import redis
-from flask import Flask, render_template, request, redirect, url_for, render_template_string
+from flask import Flask, render_template, request, redirect, url_for
 from flask_socketio import SocketIO
 
 # Redis streams configuration
@@ -70,8 +70,7 @@ def check_messages():
 # Main route for sending HTML page to the client
 @app.route('/')
 def index():
-    with open('CDP-Web-Interface/index.html', 'r') as f:
-        return render_template_string(f.read())
+    return render_template('index.html')
 
 # POST method that deals with message sent by client
 @app.route('/submit', methods=['POST'])
