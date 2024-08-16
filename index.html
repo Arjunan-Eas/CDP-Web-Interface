@@ -283,6 +283,14 @@
 
             var lastMessage = "";
 
+            function pollServer() {
+                socket.send("polling");
+            }
+
+            setInterval(pollServer, 5000);
+
+            socket.on("connect", pollServer());
+
             socket.on("message", function(message) {
                 if (message.slice(-1) == "1"){      // Ignore messages that have already been read
                 } else if (message == lastMessage) {    // Ignore identical repeat messages due to file event errors
@@ -301,7 +309,6 @@
                 // Add received message to messageDisplayArea
                 appendMessage(SDUID, "You", TOPIC, "left", DATA, originalContent);
                 lastMessage = message;
-                socket.send("Message received");    // Confirm receipt
                 }
             });
 
