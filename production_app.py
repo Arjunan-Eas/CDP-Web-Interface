@@ -47,7 +47,7 @@ def parse_reply(reply):
         if list(message[1].keys())[0] == INBOUND_KEY.encode():
             # Slice string to get components
             message_content = message[1][INBOUND_KEY.encode()]
-            content_list = message_content.decode().split('\x00')[:-1]
+            content_list = message_content.decode().split('\0')[:-1]
             sduid = content_list[0][len("SDUID:") : ]
             topic = content_list[1][len("TOPIC:") : ]
             data = content_list[2][len("DATA:") : ]
@@ -82,7 +82,7 @@ def submit():
     text4 = request.form['DUCK_TYPE']
 
     # Add the message to the Redis stream
-    redis_stream.xadd(STREAM_NAME, {OUTBOUND_KEY:f'DUID:{text1}\x00TOPIC:{text2}\x00DATA:{text3}\x00DUCK_TYPE:{text4}\x00'})
+    redis_stream.xadd(STREAM_NAME, {OUTBOUND_KEY:f'DUID:{text1}\0TOPIC:{text2}\0DATA:{text3}\0DUCK_TYPE:{text4}\0'})
 
     # Check for any new messages
     check_messages()

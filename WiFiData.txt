@@ -1,9 +1,9 @@
 Format OUT of web portal:
 
-DUID:8 character DUID\x00TOPIC:message_type\x00DATA:message\x00DUCK_TYPE:duck_type\x00
+DUID:8 character DUID\0TOPIC:message_type\x00DATA:message\0DUCK_TYPE:duck_type\0
 
 
 Format IN to web portal:
 
-SDUID:8 character source device user ID\x00TOPIC:message_type\x00DATA:message\x00
+SDUID:8 character source device user ID\0TOPIC:message_type\0DATA:message\0
 

@@ -9,4 +9,4 @@ r=redis.Redis(host="localhost",port=6379)
 print(r.ping())
 
 for x in range(4):
-    r.xadd( stream_key, {'CDP_WEB':f'SDUID:MAMA000{x}\x00TOPIC:Status\x00DATA:Test message {x}\x00'} )
+    r.xadd( stream_key, {'CDP_WEB':f'SDUID:MAMA000{x}\0TOPIC:Status\0DATA:Test message {x}\0'} )
