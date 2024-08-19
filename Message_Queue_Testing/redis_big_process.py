@@ -1,6 +1,13 @@
+"""
+Use this for testing the redis_web_process. I used Docker to run redis-server, which is 
+required to make this work on Windows.
+
+This code just represents another user interacting with the Redis stream, so you can send
+messages back and forth.
+"""
+
 import redis
 from time import time
-from redis.exceptions import ConnectionError, DataError, NoScriptError, RedisError, ResponseError
 
 redis_host = "localhost"
 stream_key = "mystream"

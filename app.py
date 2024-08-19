@@ -1,3 +1,9 @@
+"""
+Full version of CDP web app, designed to work on a non-Raspberry Pi
+environment. Use this to test and develop before using the Pi.
+Note: You will have to use Docker to run redis-server.
+"""
+
 import redis
 from flask import Flask, render_template, request, redirect, url_for, render_template_string
 from flask_socketio import SocketIO

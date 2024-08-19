@@ -1,3 +1,12 @@
+"""
+Same thing as app.py, just in a different folder.
+
+This code also has the argument mkstream=True set in the xgroup_create
+command in redis_init(). This will create a stream if a stream with a name
+matching STREAM_NAME doesn't exist.
+"""
+
+
 import redis
 from flask import Flask, render_template, request, redirect, url_for, render_template_string
 from flask_socketio import SocketIO
