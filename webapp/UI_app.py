@@ -11,7 +11,7 @@ INBOUND_KEY = "CDP_WEB"
 OUTBOUND_KEY = "WEB_CDP"
 
 # Defines hotspot IP address
-IP_ADDRESS = '10.42.0.1'
+IP_ADDRESS = 'XX.XX.X.X'
 
 # Instantiate a Flask app and SocketIO object
 app = Flask(__name__, static_url_path='/static')
