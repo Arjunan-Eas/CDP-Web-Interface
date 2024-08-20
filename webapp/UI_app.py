@@ -1,6 +1,7 @@
 import redis
 from flask import Flask, render_template, request, redirect, url_for
 from flask_socketio import SocketIO
+import redis.exceptions
 
 # Redis streams configuration
 REDIS_HOST = "localhost"
@@ -29,16 +30,22 @@ def redis_init():
         print("group already created")
     
     # Check for left over pending messages
-    pend_reply = redis_stream.xpending(STREAM_NAME, CONSUMER_GROUP)
-    print(pend_reply)
+    try:
+        pend_reply = redis_stream.xpending(STREAM_NAME, CONSUMER_GROUP)
+    # Handle exception stream doesn't exist
+    except(redis.exceptions.ResponseError):
+        print("Stream not created")
+        return False
 
     if(pend_reply == None):
         print("Pending message check error")
+        return False
     # Acknowledge any left over pending messages
     elif(pend_reply['pending'] > 0):
         detailed_reply = redis_stream.xpending_range(STREAM_NAME, CONSUMER_GROUP, pend_reply['min'], pend_reply['max'], pend_reply['pending'])
         for message in detailed_reply:
             redis_stream.xack(STREAM_NAME, CONSUMER_GROUP, message['message_id'])
+        return True
 
 def parse_reply(reply):
     # Iterate through all messages read from xread_group
@@ -95,5 +102,7 @@ def poll(message):
         check_messages()
 
 if __name__ == '__main__':
-    redis_init()    # Initialize redis
-    socket.run(app, host=IP_ADDRESS, allow_unsafe_werkzeug=True)
+    if(redis_init()):    # Initialize redis, abort program if exceptions are raised
+        socket.run(app, host=IP_ADDRESS, allow_unsafe_werkzeug=True)
+    else:
+        print("Redis error raised, program aborting")
