@@ -27,7 +27,7 @@ def redis_init():
         redis_stream.xgroup_create(STREAM_NAME, CONSUMER_GROUP, id=0)
     # Handle exception raised when group already exists
     except(redis.exceptions.ResponseError):
-        print("group already created")
+        print("Either stream not created, or group already created")
     
     # Check for left over pending messages
     try:
@@ -45,7 +45,7 @@ def redis_init():
         detailed_reply = redis_stream.xpending_range(STREAM_NAME, CONSUMER_GROUP, pend_reply['min'], pend_reply['max'], pend_reply['pending'])
         for message in detailed_reply:
             redis_stream.xack(STREAM_NAME, CONSUMER_GROUP, message['message_id'])
-        return True
+    return True
 
 def parse_reply(reply):
     # Iterate through all messages read from xread_group
