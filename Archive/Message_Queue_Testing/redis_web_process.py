@@ -76,7 +76,7 @@ def check_messages():
 # Main route for sending HTML page to the client
 @app.route('/')
 def index():
-    with open('CDP-Web-Interface/index.html', 'r') as f:
+    with open('CDP-Web-Interface\Archive\index.html', 'r') as f:
         return render_template_string(f.read())
 
 # POST method that deals with message sent by client
