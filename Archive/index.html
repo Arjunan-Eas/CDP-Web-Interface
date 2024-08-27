@@ -351,8 +351,8 @@
                 <!-- HTML content of message form -->
                 <form action="/submit" method="post" id="webInterfaceForm">
 
-                    <label for="DUCK_TYPE" style="color: white;">Duck Type: </label>
-                    <select id="DUCK_TYPE" style="background-color: #989898;" style="color: white;" name="DUCK_TYPE">
+                    <label for="DUCKTYPE" style="color: white;">Duck Type: </label>
+                    <select id="DUCKTYPE" style="background-color: #989898;" style="color: white;" name="DUCKTYPE">
                         <option hidden disabled selected value> -- Select a duck type -- </option>
                         <option value="PAPA">PapaDuck</option>
                         <option value="MAMA">MamaDuck</option>
@@ -416,9 +416,9 @@
 
                 function displayText() {
 
-                    // Store the selected value of DUCK_TYPE in duckType array
+                    // Store the selected value of DUCKTYPE in duckType array
                     document.getElementById("webInterfaceForm").onsubmit = function() {
-                        duckTypes.push(document.getElementById("DUCK_TYPE").value);
+                        duckTypes.push(document.getElementById("DUCKTYPE").value);
                     };
 
                     // Gets current content of update box
@@ -456,7 +456,7 @@
                 // On page load, set the value of Duck Type if selected previously
                 window.onload = function() {
                     if (messageCount > 0) {
-                        document.getElementById("DUCK_TYPE").value = duckTypes[messageCount - 1];
+                        document.getElementById("DUCKTYPE").value = duckTypes[messageCount - 1];
                     }
                 };
 
