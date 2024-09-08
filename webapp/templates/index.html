@@ -281,8 +281,6 @@
             // Socketio code
             const socket = io();
 
-            var lastMessage = "";
-
             function pollServer() {
                 socket.send("polling");
             }
@@ -292,9 +290,6 @@
             socket.on("connect", pollServer());
 
             socket.on("message", function(message) {
-                if (message.slice(-1) == "1"){      // Ignore messages that have already been read
-                } else if (message == lastMessage) {    // Ignore identical repeat messages due to file event errors
-                } else {
                 
                 // Find indicies of important words
                 const index1 = message.indexOf('TOPIC:');
@@ -309,7 +304,7 @@
                 // Add received message to messageDisplayArea
                 appendMessage(SDUID, "You", TOPIC, "left", DATA, originalContent);
                 lastMessage = message;
-                }
+                
             });
 
         </script>
