@@ -1,6 +1,6 @@
 Format OUT of web portal (WEB_CDP):
 
-DUID:8 character DUID\0TOPIC:message_type_DATA:message_DUCKTYPE:ducktype_
+DUID:8 character DUID_TOPIC:message_type_DATA:message_DUCKTYPE:ducktype_
 
 ex: 'DUID:MAMA0001_TOPIC:status_DATA:This is an example message_DUCKTYPE:MAMA_
 
