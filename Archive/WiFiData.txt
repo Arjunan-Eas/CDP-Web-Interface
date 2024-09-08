@@ -1,12 +1,12 @@
 Format OUT of web portal (WEB_CDP):
 
-DUID:8 character DUID\0TOPIC:message_type\0DATA:message\0DUCK_TYPE:duck_type\0
+DUID:8 character DUID\0TOPIC:message_type_DATA:message_DUCKTYPE:ducktype_
 
-ex: 'DUID:MAMA0001\0TOPIC:status\0DATA:This is an example message\0DUCK_TYPE:MAMA\0
+ex: 'DUID:MAMA0001_TOPIC:status_DATA:This is an example message_DUCKTYPE:MAMA_
 
 
 Format IN to web portal (CDP_WEB):
 
-SDUID:8 character source device user ID\0TOPIC:message_type\0DATA:message\0
+SDUID:8 character source device user ID_TOPIC:message_type_DATA:message_
 
-ex: 'SDUID:MAMA0002\0TOPIC:status\0DATA:This is an example response\0
+ex: 'SDUID:MAMA0002_TOPIC:status_DATA:This is an example response_

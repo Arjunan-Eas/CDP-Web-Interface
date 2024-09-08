@@ -110,7 +110,7 @@ def submit():
     text1 = request.form['DUID']
     text2 = request.form['TOPIC']
     text3 = request.form['DATA']
-    text4 = request.form['DUCK_TYPE']
+    text4 = request.form['DUCKTYPE']
 
     # Add the message to the Redis stream
     redis_stream.xadd(STREAM_NAME, {OUTBOUND_KEY:f'DUID:{text1}_TOPIC:{text2}_DATA:{text3}_DUCKTYPE:{text4}'})
